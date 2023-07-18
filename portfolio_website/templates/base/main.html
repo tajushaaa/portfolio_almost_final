@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  {% load static %}
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon_io/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon_io/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon_io/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'images/favicon_io/site.webmanifest' %}">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="https://use.typekit.net/gki3ist.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Justina Semčenkaitė</title>
+</head>
+
+{% if user.is_authenticated %}
+<form method="post" action="{% url 'custom_logout' %}">
+  {% csrf_token %}
+  <input type="submit" value="Logout" class="delete-button">
+</form>
+{% endif %}
+
+<body>
+  <div class="share-container">
+    <div class="share-button">
+      <div class="share-circle"></div>
+      <div class="label"></div>
+      <div class="social-links">
+        <a href="https://www.facebook.com/j.semcenkaite/?locale=lt_LT" target="_blank"><i
+            class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/justina.semcenkaite/?fbclid=IwAR1wDh1Q_pxU-o6HZYiAG77YWnqusU7qBMXoABYjh6sL0OskobqQkiPMO0g"
+          target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/semcenkaite/?originalSubdomain=lt" target="_blank"><i
+            class="fab fa-linkedin"></i></a>
+        <a href="/" class="home-button"><i class="fas fa-home"></i></a>
+      </div>
+    </div>
+  </div>
+
+  {% block body %}
+  {% endblock %}
+
+  <script src="{% static 'main.js' %}" defer></script>
+</body>
+
+</html>

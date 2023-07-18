@@ -1,0 +1,50 @@
+{% extends 'base/main.html' %}
+{% block body %}
+
+{% if user.is_authenticated %}
+<form method="post" action="{% url 'create_project' %}">
+  {% csrf_token %}
+  <input type="submit" value="Create Project" class="submit-button">
+</form>
+{% endif %}
+<section>
+  <div class="blur" id="textContainer">
+    <h1 class="text">Justina Semcenkaite</h1>
+    <div class="description">
+      Justina Semčenkaitė is a trained fashion designer and a researcher. She obtained Bachelor's and Master's
+      degrees in Fashion Design at Vilnius Academy of Arts (2018) and currently is a PhD candidate in Design.
+      Author's creative style is bright, surreal and ironic, often using crafts & pink colour. It delves into the
+      themes of activism, consumption and socio-cultural stereotypes.
+      <br><br>
+      The designer currently specializes in sustainable fashion. The most famous projects are the experimental
+      collection GIRL POWER and the exhibition Welcome to the Pretty Ugly World.
+    </div>
+  </div>
+</section>
+<section class="hidden">
+  <div class="project-grid" id="projectContainer">
+    {% for project in projects %}
+    {% if project.slug %}
+    <div class="project-item">
+      <div class="image-item">
+        <a href="{% url 'project_detail' project_slug=project.slug %}" class="project-link">
+          <img src="{{ project.image.url }}" alt="Image" class="grid-image">
+        </a>
+      </div>
+      <div class="project-details">
+        <div class="text-container">
+          <h3>{{ project.name }}</h3>
+          <p>{{ project.info }}</p>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% load static %}
+<script src="{% static 'home.js' %}"></script>
+
+{% endblock %}

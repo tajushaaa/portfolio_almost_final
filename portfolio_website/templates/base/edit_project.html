@@ -1,0 +1,57 @@
+{% extends 'base/main.html' %}
+{% block body %}
+
+<div class="container">
+  <form method="post" enctype="multipart/form-data" action="{% url 'edit_project' project_slug=project.slug %}">
+    {% csrf_token %}
+    <div>
+      <label for="{{ form.name.id_for_label }}">Name:</label>
+      {{ form.name }}
+    </div>
+    <br>
+    <div>
+      <label for="{{ form.category.id_for_label }}">Category:</label>
+      {{ form.category }}
+    </div>
+    <br>
+    <div>
+      <label for="{{ form.info.id_for_label }}">Info:</label>
+      <br>
+      {{ form.info }}
+    </div>
+    <br>
+    <div>
+      <label for="{{ form.description.id_for_label }}">Description:</label><br>
+      {{ form.description }}
+    </div>
+    <br>
+    <div>
+      <label for="{{ form.image.id_for_label }}">Image:</label>
+      {{ form.image }}
+    </div>
+    <br>
+    <div id="additional-image-formset">
+      {{ additional_image_formset.management_form }}
+      {% for image_form in additional_image_formset %}
+      <div class="image-form">
+        {{ image_form.id }}
+        {% if image_form.instance.id %}
+        {{ image_form.DELETE }}
+        {% endif %}
+        {{ image_form.image.label_tag }}
+        {{ image_form.image }}
+      </div>
+      {% endfor %}
+    </div>
+
+    <button type="button" id="add-additional-image" class="submit-button">Add an additional image</button>
+    <br><br>
+    <input type="submit" value="Update Project" class="submit-button">
+    <br><br>
+  </form>
+</div>
+
+{% load static %}
+<script src="{% static 'image.js' %}"></script>
+
+{% endblock %}
